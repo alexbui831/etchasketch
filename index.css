@@ -1,0 +1,31 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(16, 1fr);
+    background-color: black;
+    width: 100%;
+    height: 100%;  
+}
+
+.grid-item {
+    color:blue;
+    background-color: gray;
+}
+
+.grid-item:hover {
+    background-color: darkgray;
+}
+
+.colored {
+background-color: black;
+}
+
+#clear-btn {
+    display:flex;
+    padding:10px;
+}
