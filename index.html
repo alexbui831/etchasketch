@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Festive&family=Qahiri&display=swap" rel="stylesheet">
     <title>Etch-a-Sketch</title>
 </head>
 
@@ -15,27 +18,33 @@
 
 <script>
 
-    //  create button to clear the etch-a-sketch
+    //  create btn container
+    const btnContainer = document.createElement("div");
+    btnContainer.setAttribute("id", "btn-container");
+    document.body.append(btnContainer);
+
+    //  create button to clear etchasketch
     const btn = document.createElement("button");
-    btn.setAttribute("id", "clear-btn");
-    btn.textContent = ("Clear Etch-a-Sketch")
-    document.body.append(btn);
+    btn.setAttribute("id", "clear-btn")
+    btn.setAttribute("onclick", "createNewGrid()");
+    btn.textContent = "Clear Etch-a-Sketch";
+    btnContainer.append(btn);
 
 
     //  create div grid container
     const gridContainer = document.createElement("div");
     gridContainer.setAttribute("id", "container");
-    //gridContainer.setAttribute("class", "grid-container");
     document.body.append(gridContainer);
 
-    const container = document.getElementById("container");
 
-    //  creates enough div to fill a 16x16 grid
+    //  create first etchasketch layout
     for (let i = 0; i < 256; i++) {
         const div = document.createElement("div");
         div.setAttribute("class", "grid-item");
         container.append(div);
     }
+
+    gridContainer.setAttribute("style", "grid-template-columns: repeat(16, 1fr); grid-template-rows: repeat(16,1fr)");
 
     const divs = container.querySelectorAll("div");
 
@@ -44,6 +53,58 @@
             div.classList.add("colored")
         });
     });
+
+
+    //  function that allows user input to create new grid layout
+    function createNewGrid() {
+
+
+        // ask for new size grid
+        let amount = prompt("What n x n size grid layout would you like to sketch on?");
+
+        //  limits user putting in value over 100 to keep load times steady
+        while (amount > 101) {
+            amount = prompt("MAX sketch size is 100, please try again.")
+        }
+
+        let gridSize = amount * amount;
+        const container = document.getElementById("container");
+
+
+        //  create divs nodelist
+        const divs = container.querySelectorAll("div");
+
+
+        // clear grid by removing colored class from all divs
+        divs.forEach((div) => {
+            div.classList.remove("colored")
+        });
+
+
+        //  creates enough enough div x * x 
+        for (let i = 0; i < gridSize; i++) {
+            const div = document.createElement("div");
+            div.setAttribute("class", "grid-item");
+            container.append(div);
+        }
+
+
+        //  style css container to match amount of elements preferred
+        gridContainer.setAttribute("style", `grid-template-columns: repeat(${amount}, 1fr); grid-template-rows: repeat(${amount},1fr)`);
+
+
+        //  use .forEach to allow when each div element is hovered, add class "change color"
+        divs.forEach((div) => {
+            div.addEventListener("mouseover", () => {
+                div.classList.add("colored")
+            });
+        });
+
+        alert("Loading...");
+
+    }
+
+
 
 
 
