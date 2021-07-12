@@ -3,16 +3,26 @@ html, body {
     height: 100%;
 }
 
+#page-container {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #container {
+    
     display: grid;
     background-color: black;
-    width: 100%;
-    height: 100%;  
+    width: 350px;
+    height: 350px;  
+    gap: 1px 1px;
+    
 }
 
 .grid-item {
     color:blue;
     background-color: gray;
+
 }
 
 .grid-item:hover {

@@ -17,11 +17,15 @@
 </body>
 
 <script>
+    //  create whole container to allow easier page layout adjustments using flexbox or css grid
+    const pageContainer = document.createElement("div");
+    pageContainer.setAttribute("id", "page-container");
+    document.body.append(pageContainer);
 
     //  create btn container
     const btnContainer = document.createElement("div");
     btnContainer.setAttribute("id", "btn-container");
-    document.body.append(btnContainer);
+    pageContainer.append(btnContainer);
 
     //  create button to clear etchasketch
     const btn = document.createElement("button");
@@ -34,7 +38,7 @@
     //  create div grid container
     const gridContainer = document.createElement("div");
     gridContainer.setAttribute("id", "container");
-    document.body.append(gridContainer);
+    pageContainer.append(gridContainer);
 
 
     //  create first etchasketch layout
@@ -49,7 +53,7 @@
     const divs = container.querySelectorAll("div");
 
     divs.forEach((div) => {
-        div.addEventListener("mouseover", () => {
+        div.addEventListener("click", () => {
             div.classList.add("colored")
         });
     });
@@ -95,13 +99,10 @@
 
         //  use .forEach to allow when each div element is hovered, add class "change color"
         divs.forEach((div) => {
-            div.addEventListener("mouseover", () => {
+            div.addEventListener("click", () => {
                 div.classList.add("colored")
             });
         });
-
-        alert("Loading...");
-
     }
 
 
