@@ -9,8 +9,7 @@ html, body {
     align-items: center;
 }
 
-#container {
-    
+#grid-container {
     display: grid;
     background-color: black;
     width: 350px;
