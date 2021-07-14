@@ -14,38 +14,57 @@
 
 <body>
     <div id="page-container">
-        <div id="btn-container">
-            <button id="clear-btn" onclick="clearGrid()">Clear Etch-a-Sketch</button>
-            <button id="newGrid" onclick="newGrid(askNum())">New Grid</button>
+        <h1>
+            Etch-a-Sketch
+        </h1>
+        <div id="top-btn-container">
+            <button class="color-btn" id="black-btn">Black</button>
+            <button class="color-btn" id="rainbow-btn">Rainbow</button>
+            <button class="color-btn" id="pattern1-btn">Pattern 1</button>
+            <button class="color-btn" id="pattern2-btn">Pattern 2</button>
+            <button class="color-btn" id="eraser">Eraser</button>
         </div>
-        <div id="grid-container">
 
+        <div id="grid-container"></div>
+
+        <div class="slidecontainer">
+            <button id="clear-btn">Clear</button>
+            <input type="range" min="2" max="64" value="32" class="slider" id="sliderBar"
+                oninput="this.nextElementSibling.value = this.value">
+            <output id="sliderCurrentValue">32</output>
         </div>
     </div>
 </body>
 
 <script>
+    //  containers
     const pageContainer = document.getElementById("page-container");
-    const btnContainer = document.getElementById("btn-container");
+    const topbtnContainer = document.getElementById("top-btn-container");
     const gridContainer = document.getElementById("grid-container");
+    const botbtnContainer = document.getElementById("bot-btn-container");
 
-    newGrid(2);
+    //  buttons
+    const btnBlack = document.getElementById("black-btn");
+    const btnRainbow = document.getElementById("rainbow-btn");
+    const btnPattern1 = document.getElementById("pattern1-btn");
+    const btnPattern2 = document.getElementById("pattern2-btn");
+    const btnEraser = document.getElementById("eraser");
+    const btnClear = document.getElementById("clear-btn");
 
-    function askNum() {
-        let ask = prompt("Answer");
-        return ask;
-    }
+    //  slider
+    const slider = document.getElementById("sliderBar");
+    let sliderBar = document.querySelector("#sliderBar");
+
+    newGrid(sliderBar.value);
 
     //  function that allows user input to create new grid layout
     function newGrid(amount) {
 
-        //  limits user putting in value over 100 to keep load times steady
-        while (amount > 101) {
-            newGrid();
-        }
-
         let gridSize = amount * amount;
+
+        //  removes all previous divs created
         gridContainer.textContent = ("");
+
         //  creates enough enough div x * x 
         for (let i = 0; i < gridSize; i++) {
             const div = document.createElement("div");
@@ -55,31 +74,134 @@
 
         //  style css container to match amount of elements preferred
         gridContainer.setAttribute("style", `grid-template-columns: repeat(${amount}, 1fr); grid-template-rows: repeat(${amount},1fr)`);
+    }
 
+    function colorTool(choice) {
         //  create divs nodelist
         const divs = gridContainer.querySelectorAll("div");
 
-        //  use .forEach to allow when each div element is hovered, add class "change color"
-        divs.forEach((div) => {
-            div.addEventListener("mouseover", () => {
-                div.classList.add("colored")
+        if (choice === "black-paint") {
+            //  allow when each div element is hovered, add class "change color"
+            divs.forEach((div) => {
+                div.addEventListener("mouseover", () => {
+                    div.setAttribute("style", "background-color: black");
+                });
             });
-        });
+        }
+        else if (choice === "rainbow") {
+            //  allows each div to get a random color
+            divs.forEach((div) => {
+                let r = Math.floor(Math.random() * 256);
+                let g = Math.floor(Math.random() * 256);
+                let b = Math.floor(Math.random() * 256);
+                div.addEventListener("mouseover", () => {
+                    div.setAttribute("style", `background-color: rgb(${r}, ${g}, ${b})`);
+                });
+            });
+
+        }
+        else if (choice === "pattern1") {
+            divs.forEach((div) => {
+                let randomNumber = Math.floor(Math.random() * 5);
+                let color = "";
+                switch (randomNumber) {
+                    case 1:
+                        color = "#ffc6ff"
+                        break;
+                    case 2:
+                        color = "#9bf6ff"
+                        break;
+                    case 3:
+                        color = "#ffadad"
+                        break;
+                    case 4:
+                        color = "#caffbf"
+                        break;
+                    case 5:
+                        color = "#bdb2ff"
+                        break;
+                }
+                div.addEventListener("mouseover", () => {
+                    div.setAttribute("style", `background-color: ${color}`)
+                });
+            });
+        }
+        else if (choice === "pattern2") {
+            divs.forEach((div) => {
+                let randomNumber = Math.floor(Math.random() * 5);
+                let color = "";
+                switch (randomNumber) {
+                    case 1:
+                        color = "#dab49d"
+                        break;
+                    case 2:
+                        color = "#895737"
+                        break;
+                    case 3:
+                        color = "#5e3023"
+                        break;
+                    case 4:
+                        color = "#c08552"
+                        break;
+                    case 5:
+                        color = "#f3e9dc"
+                        break;
+                }
+                div.addEventListener("mouseover", () => {
+                    div.setAttribute("style", `background-color: ${color}`)
+                });
+            });
+        }
+        else if (choice === "eraser") {
+            divs.forEach((div) => {
+                div.addEventListener("mouseover", () => {
+                    div.setAttribute("style", "background-color: white")
+                });
+            });
+        }
+
+
     }
-
-    //  function that clears grid
+    //  function that wipes all color from the grid
     function clearGrid() {
-
         const divs = gridContainer.querySelectorAll("div");
         console.log("CLEAR");
         // clear grid by removing colored class from all divs
         divs.forEach((div) => {
-            div.classList.remove("colored")
+            div.setAttribute("style", "background-color: white");
         });
-
     }
 
 
+    //  adds click function to black button
+    btnBlack.addEventListener("click", () => {
+        colorTool("black-paint");
+    });
+    //  adds click function to rainbow button
+    btnRainbow.addEventListener("click", () => {
+        colorTool("rainbow");
+    });
+    //  adds click function to pattern1 button
+    btnPattern1.addEventListener("click", () => {
+        colorTool("pattern1");
+    });
+    //  adds click function to pattern2 button
+    btnPattern2.addEventListener("click", () => {
+        colorTool("pattern2");
+    });
+    //  adds click function to erasor button
+    btnEraser.addEventListener("click", () => {
+        colorTool("eraser");
+    });
+    //  adds click function to clear button
+    btnClear.addEventListener("click", () => {
+        console.log("GAY")
+        clearGrid();
+    });
+    //  allows slider to adjust grid size
+    slider.addEventListener("click", () => {
+        newGrid(sliderBar.value);
+    });
 
 </script>
 

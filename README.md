@@ -11,3 +11,11 @@ Although the basic of the assignment is completed, I want to improve this applic
 
 July 12th 2021:
 +Added page container and adjusted previous JavaScript code to align with new main container
+
+July 14th 2021:
++Added all functionalities to buttons
++Added rainbow button
++Added pattern buttons
++Added eraser
++Added slider bar that adjusts grid size
+-Want to restyle/redesign page to look neat and clean
