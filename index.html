@@ -15,7 +15,7 @@
 <body>
     <div id="page-container">
         <h1>
-            Etch-a-Sketch
+            ETCH-A-SKETCH
         </h1>
         <div id="top-btn-container">
             <button class="color-btn" id="black-btn">Black</button>
@@ -33,6 +33,10 @@
                 oninput="this.nextElementSibling.value = this.value">
             <output id="sliderCurrentValue">32</output>
         </div>
+        <div id="msg">Curriculum for <a
+                href="https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/etch-a-sketch-project"
+                target="_blank">TheOdinProject</a>
+            | <a href="https://github.com/alexbui831" target="_blank">gitHub</a></div>
     </div>
 </body>
 
@@ -98,26 +102,25 @@
                     div.setAttribute("style", `background-color: rgb(${r}, ${g}, ${b})`);
                 });
             });
-
         }
         else if (choice === "pattern1") {
             divs.forEach((div) => {
                 let randomNumber = Math.floor(Math.random() * 5);
                 let color = "";
                 switch (randomNumber) {
-                    case 1:
+                    case 0:
                         color = "#ffc6ff"
                         break;
-                    case 2:
+                    case 1:
                         color = "#9bf6ff"
                         break;
-                    case 3:
+                    case 2:
                         color = "#ffadad"
                         break;
-                    case 4:
+                    case 3:
                         color = "#caffbf"
                         break;
-                    case 5:
+                    case 4:
                         color = "#bdb2ff"
                         break;
                 }
@@ -131,19 +134,19 @@
                 let randomNumber = Math.floor(Math.random() * 5);
                 let color = "";
                 switch (randomNumber) {
-                    case 1:
+                    case 0:
                         color = "#dab49d"
                         break;
-                    case 2:
+                    case 1:
                         color = "#895737"
                         break;
-                    case 3:
+                    case 2:
                         color = "#5e3023"
                         break;
-                    case 4:
+                    case 3:
                         color = "#c08552"
                         break;
-                    case 5:
+                    case 4:
                         color = "#f3e9dc"
                         break;
                 }
@@ -159,8 +162,6 @@
                 });
             });
         }
-
-
     }
     //  function that wipes all color from the grid
     function clearGrid() {
@@ -171,8 +172,6 @@
             div.setAttribute("style", "background-color: white");
         });
     }
-
-
     //  adds click function to black button
     btnBlack.addEventListener("click", () => {
         colorTool("black-paint");
@@ -195,7 +194,6 @@
     });
     //  adds click function to clear button
     btnClear.addEventListener("click", () => {
-        console.log("GAY")
         clearGrid();
     });
     //  allows slider to adjust grid size
